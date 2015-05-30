@@ -1,6 +1,8 @@
 package org.jenkinsci.plugins.categoriesreport;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import hudson.model.Action;
@@ -56,6 +58,20 @@ public abstract class TestCategoriesActionBase implements Action {
       }
     }
     return cat;
+  }
+
+  protected void SortCategories(List<CategoryResult> categories) {
+    Collections.sort(categories, new Comparator<CategoryResult>() {
+      @Override
+      public int compare(CategoryResult x, CategoryResult y) {
+        int s = Integer.compare(y.getFailures(), x.getFailures());
+        if (s != 0) {
+          return s;
+        }
+        s = x.getName().compareTo(y.getName());
+        return s;
+      }
+    });
   }
 
   protected abstract List<CategoryResult> getCategoriesInternal();

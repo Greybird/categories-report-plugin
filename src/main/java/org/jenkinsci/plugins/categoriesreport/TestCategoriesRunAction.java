@@ -11,6 +11,7 @@ public class TestCategoriesRunAction extends TestCategoriesActionBase {
   public TestCategoriesRunAction(String name, Collection<CategoryResult> results) {
     super(name);
     categories.addAll(results);
+    SortCategories(categories);
   }
 
   @Override

@@ -37,7 +37,9 @@ public class TestCategoriesProjectAction extends TestCategoriesActionBase {
     while(currentBuild!=null) {
       List<TestCategoriesActionBase> actions = getTestCategoriesActions(currentBuild, name);
       if(!actions.isEmpty() && (!currentBuild.isBuilding())) {
-        return new Results(actions.get(0).getCategories(), lastSuccessfulBuild.number);
+        List<CategoryResult> categories = actions.get(0).getCategories();
+        SortCategories(categories);
+        return new Results(categories, lastSuccessfulBuild.number);
       }
       if(currentBuild==lastSuccessfulBuild) {
         // if even the last successful build didn't produce the test result,
