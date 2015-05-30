@@ -1,8 +1,8 @@
 package org.jenkinsci.plugins.categoriesreport;
 
 import org.jenkinsci.plugins.categoriesreport.xml.CategoriesType;
-import org.jenkinsci.plugins.categoriesreport.xml.TestSuiteType;
 import org.jenkinsci.plugins.categoriesreport.xml.CategoryType;
+import org.jenkinsci.plugins.categoriesreport.xml.TestSuiteType;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -11,15 +11,13 @@ import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CategoriesAggregator {
-  private final TestCategoriesLog logger;
+class CategoriesAggregator {
   private final Map<String, CategoryResult> results;
   private final Stack<Set<String>> categoriesStack = new Stack<Set<String>>();
   private Set<String> levelCache;
   private final Pattern pattern;
 
-  public CategoriesAggregator(TestCategoriesLog logger, String pattern, Map<String, CategoryResult> results) {
-    this.logger = logger;
+  public CategoriesAggregator(String pattern, Map<String, CategoryResult> results) {
     this.pattern = Pattern.compile(pattern);
     this.results = results;
   }
@@ -47,11 +45,8 @@ public class CategoriesAggregator {
         Matcher m = pattern.matcher(ct.getName());
         if (m.matches()) {
           String category = m.group(Math.min(m.groupCount(), 1));
-          logger.debugConsoleLogger("Test category " + ct.getName() + " matches as " + category);
           // we add either the first capturing group (1) if present, or the match (0)
           matchingCategories.add(category);
-        } else {
-          logger.debugConsoleLogger("Test category " + ct.getName() + " does not match");
         }
       }
     }

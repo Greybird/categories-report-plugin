@@ -1,10 +1,5 @@
 package org.jenkinsci.plugins.categoriesreport;
 
-import org.jenkinsci.plugins.categoriesreport.xml.ResultsType;
-import org.jenkinsci.plugins.categoriesreport.xml.TestSuiteType;
-import org.jenkinsci.plugins.categoriesreport.xml.TestCaseType;
-import org.jenkinsci.plugins.categoriesreport.xml.ResultType;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -12,6 +7,10 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
 
 import hudson.remoting.VirtualChannel;
+import org.jenkinsci.plugins.categoriesreport.xml.ResultType;
+import org.jenkinsci.plugins.categoriesreport.xml.ResultsType;
+import org.jenkinsci.plugins.categoriesreport.xml.TestCaseType;
+import org.jenkinsci.plugins.categoriesreport.xml.TestSuiteType;
 import org.jenkinsci.remoting.RoleChecker;
 import hudson.FilePath;
 import org.apache.tools.ant.DirectoryScanner;
@@ -28,7 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class NUnitProcessor {
+class NUnitProcessor {
   private final AbstractBuild<?, ?> build;
   private final BuildListener listener;
   private final String filePattern;
@@ -96,7 +95,7 @@ public class NUnitProcessor {
     }
 
     private void process(ResultType testResult, Map<String, CategoryResult> categories) {
-      CategoriesAggregator aggregator = new CategoriesAggregator(logger, categoriesPattern, categories);
+      CategoriesAggregator aggregator = new CategoriesAggregator(categoriesPattern, categories);
       TestSuiteType testSuite = testResult.getTestSuite();
       if (testSuite != null) {
         processTestSuite(testSuite, aggregator);

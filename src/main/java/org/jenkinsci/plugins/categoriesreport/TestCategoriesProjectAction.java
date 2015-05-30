@@ -5,7 +5,6 @@ import hudson.model.AbstractProject;
 import hudson.model.AbstractBuild;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class TestCategoriesProjectAction extends TestCategoriesActionBase {
@@ -25,22 +24,20 @@ public class TestCategoriesProjectAction extends TestCategoriesActionBase {
       AbstractBuild<?,?> lastSuccessfulBuild = project.getLastSuccessfulBuild();
       if (lastSuccessfulBuild == null) {
         results = getLastActions(project, getName());
-      } else if (lastSuccessfulBuild.number > results.buildNumber) {
+      } else if (lastSuccessfulBuild.number > results.getBuildNumber()) {
         results = getLastActions(project, getName());
       }
     }
     return results.getResults();
   }
 
-  private final Results getLastActions(AbstractProject<?, ?> project, String name) {
+  private Results getLastActions(AbstractProject<?, ?> project, String name) {
     final AbstractBuild<?,?> lastSuccessfulBuild = project.getLastSuccessfulBuild();
     AbstractBuild<?,?> currentBuild = project.getLastBuild();
     while(currentBuild!=null) {
-      Collection<TestCategoriesActionBase> actions = getTestCategoriesActions(currentBuild, name);
+      List<TestCategoriesActionBase> actions = getTestCategoriesActions(currentBuild, name);
       if(!actions.isEmpty() && (!currentBuild.isBuilding())) {
-        for(TestCategoriesActionBase action : actions) {
-          return new Results(action.getCategories(), lastSuccessfulBuild.number);
-        }
+        return new Results(actions.get(0).getCategories(), lastSuccessfulBuild.number);
       }
       if(currentBuild==lastSuccessfulBuild) {
         // if even the last successful build didn't produce the test result,
@@ -52,7 +49,7 @@ public class TestCategoriesProjectAction extends TestCategoriesActionBase {
     return new Results(new ArrayList<CategoryResult>(0), 0);
   }
 
-  private static final List<TestCategoriesActionBase> getTestCategoriesActions(Run r, String name) {
+  private static List<TestCategoriesActionBase> getTestCategoriesActions(Run r, String name) {
     List<TestCategoriesActionBase> actions = new ArrayList<TestCategoriesActionBase>();
     if (r != null) {
       for(TestCategoriesActionBase a : r.getActions(TestCategoriesActionBase.class)) {

@@ -1,12 +1,5 @@
 package org.jenkinsci.plugins.categoriesreport;
 
-import hudson.tasks.test.AbstractTestResultAction;
-import hudson.tasks.BuildStep;
-import hudson.FilePath;
-import hudson.model.TaskListener;
-import hudson.model.Run;
-import jenkins.tasks.SimpleBuildStep;
-import hudson.model.Project;
 import org.kohsuke.stapler.DataBoundConstructor;
 import hudson.Extension;
 import hudson.Launcher;
@@ -16,17 +9,13 @@ import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import hudson.tasks.BuildStepDescriptor;
 import hudson.tasks.Recorder;
-import hudson.model.Descriptor;
 import hudson.tasks.BuildStepMonitor;
 import hudson.tasks.Publisher;
 

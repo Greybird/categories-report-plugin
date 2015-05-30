@@ -45,3 +45,5 @@ _ReSharper*/
 target/*
 work/*
 *.orig
+.idea/*
+*.iml
