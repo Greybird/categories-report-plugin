@@ -1,0 +1,27 @@
+<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.0" width="48" height="48" id="svg7854">
+  <defs id="defs7856">
+    <linearGradient id="linearGradient5202">
+      <stop id="stop5204" offset="0" style="stop-color:#ffffff;stop-opacity:1"/>
+      <stop id="stop5206" offset="1" style="stop-color:#ffffff;stop-opacity:0"/>
+    </linearGradient>
+    <linearGradient id="linearGradient5190">
+      <stop id="stop5192" offset="0" style="stop-color:#FC593E;stop-opacity:1"/>
+      <stop id="stop5194" offset="1" style="stop-color:#F50B00;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="linearGradient5130">
+      <stop id="stop5132" offset="0" style="stop-color:#000000;stop-opacity:1"/>
+      <stop id="stop5134" offset="1" style="stop-color:#000000;stop-opacity:0"/>
+    </linearGradient>
+    <radialGradient cx="22" cy="38.5" r="13" fx="22" fy="38.5" id="radialGradient5136" xlink:href="#linearGradient5130" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1,0,0,0.5,0,19.25)"/>
+    <filter id="filter5186" height="1.6939759" y="-0.34698796" width="1.346988" x="-0.17349398">
+      <feGaussianBlur id="feGaussianBlur5188" stdDeviation="1.8795181" inkscape:collect="always"/>
+    </filter>
+    <radialGradient cx="21.525126" cy="30.439341" r="18.888176" fx="21.525126" fy="30.439341" id="radialGradient5200" xlink:href="#linearGradient5190" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0,-1.2519025,47.292244,0,-1418.0196,57.3867)"/>
+    <linearGradient x1="22.109375" y1="11.34375" x2="22.109375" y2="49.612667" id="linearGradient5208" xlink:href="#linearGradient5202" gradientUnits="userSpaceOnUse"/>
+  </defs>
+  <g id="layer1">
+    <path d="M35 38.5A13 6.5 0 1 1 9 38.5 13 6.5 0 1 1 35 38.5z" transform="matrix(1.3257204,0,0,1.3060079,-3.6937336,-12.797355)" id="path4551" style="display:inline;enable-background:accumulate;fill-opacity:1;fill-rule:nonzero;fill:url(#radialGradient5136);filter:url(#filter5186);marker-end:none;marker-mid:none;marker-start:none;marker:none;opacity:0.43373497;overflow:visible;visibility:visible"/>
+    <path d="M35.099492 35.723338L26.703003 33.840596 22.097088 41.10911 17.491173 33.840597 9.094684 35.723338 10.977425 27.32685 3.7089119 22.720934 10.977425 18.115019 9.0946839 9.71853 17.491172 11.601271 22.097088 4.3327579 26.703002 11.601271 35.099492 9.71853 33.21675 18.115018 40.485264 22.720934 33.216751 27.326849 35.099492 35.723338z" transform="matrix(1.1209343,0,0,1.1042669,-0.1974224,-1.3744715)" id="path4547" style="display:inline;enable-background:accumulate;fill-opacity:1;fill-rule:nonzero;fill:url(#radialGradient5200);marker-end:none;marker-mid:none;marker-start:none;marker:none;opacity:1;overflow:visible;stroke-dasharray:none;stroke-dashoffset:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-width:1;stroke:#ce5c00;visibility:visible"/>
+    <path d="M22.09375 6.15625L18.3125 12.125C18.087547 12.462771 17.676134 12.624843 17.28125 12.53125L10.375 11 11.90625 17.90625C11.999843 18.301134 11.837771 18.712547 11.5 18.9375L5.53125 22.71875 11.5 26.5C11.837771 26.724953 11.999843 27.136366 11.90625 27.53125L10.375 34.4375 17.28125 32.90625C17.676134 32.812657 18.087547 32.974729 18.3125 33.3125L22.09375 39.28125 25.875 33.3125C26.099953 32.974729 26.511366 32.812657 26.90625 32.90625L33.8125 34.4375 32.28125 27.53125C32.187657 27.136366 32.349729 26.724953 32.6875 26.5L38.6875 22.71875 32.6875 18.9375C32.349729 18.712547 32.187657 18.301134 32.28125 17.90625L33.8125 11 26.90625 12.53125C26.511366 12.624843 26.099953 12.462771 25.875 12.125L22.09375 6.15625z" transform="matrix(1.1263736,0,0,1.1263736,-0.2940419,-1.8085508)" id="path5198" style="display:inline;enable-background:accumulate;fill:none;marker-end:none;marker-mid:none;marker-start:none;marker:none;opacity:0.33734939;overflow:visible;stroke-dasharray:none;stroke-dashoffset:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-width:1;stroke:url(#linearGradient5208);visibility:visible"/>
+  </g>
+</svg>

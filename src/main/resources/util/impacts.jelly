@@ -1,0 +1,14 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
+  xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
+  <t:summary icon="icon-categories">
+    <j:if test="${it.hasFailingCategories}">
+      <b>${it.displayName}:</b>
+      <ul style="margin-top:0">
+      <j:forEach var="category" items="${it.failingCategories}">
+        <li><strong>${category.name}</strong> : <strong><span style="color:red">${category.failures}</span></strong> failures (out of ${category.total})</li>
+      </j:forEach>
+      </ul>
+    </j:if>
+  </t:summary>
+</j:jelly>
