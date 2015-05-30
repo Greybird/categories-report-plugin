@@ -1,4 +1,5 @@
 # categories-report-plugin
+[![Build Status](https://buildhive.cloudbees.com/job/Greybird/job/categories-report-plugin/badge/icon)](https://buildhive.cloudbees.com/job/Greybird/job/categories-report-plugin/)
 
 ## TODO :
 * Sort by failures
