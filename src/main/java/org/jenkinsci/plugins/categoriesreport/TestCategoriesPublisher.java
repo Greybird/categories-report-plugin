@@ -59,9 +59,11 @@ public class TestCategoriesPublisher extends Recorder {
   @Override
   public boolean perform(AbstractBuild<?, ?> build, Launcher launcher, BuildListener listener) throws InterruptedException, IOException {
     TestCategoriesLog log = new TestCategoriesLog(listener);
+    log.infoConsoleLogger("Starting processing");
     NUnitProcessor processor = new NUnitProcessor(log, build, listener, filePattern, categoriesRegex);
     Map<String, CategoryResult> results = processor.run();
     build.addAction(new TestCategoriesRunAction(name, results.values()));
+    log.infoConsoleLogger("Ended processing");
     return true;
   }
 
