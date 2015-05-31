@@ -1,39 +1,42 @@
 package org.jenkinsci.plugins.categoriesreport;
 
+import hudson.model.Job;
 import hudson.model.Run;
-import hudson.model.AbstractProject;
-import hudson.model.AbstractBuild;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class TestCategoriesProjectAction extends TestCategoriesActionBase {
-  private final AbstractProject<?, ?> project;
   private Results results = null;
+  private Job<?, ?> job;
 
-  public TestCategoriesProjectAction(AbstractProject<?, ?> project, String name) {
+  public TestCategoriesProjectAction(Job<?,?> job, String name) {
     super(name);
-    this.project = project;
+    this.job = job;
+  }
+
+  @Override
+  public String getUrlName() {
+    return "lastCompletedBuild/" + super.getUrlName();
   }
 
   @Override
   protected List<CategoryResult> getCategoriesInternal() {
     if (results == null) {
-      results = getLastActions(project, getName());
+      results = getLastActions(job, getName());
     } else {
-      AbstractBuild<?,?> lastSuccessfulBuild = project.getLastSuccessfulBuild();
+      Run lastSuccessfulBuild = job.getLastSuccessfulBuild();
       if (lastSuccessfulBuild == null) {
-        results = getLastActions(project, getName());
+        results = getLastActions(job, getName());
       } else if (lastSuccessfulBuild.number > results.getBuildNumber()) {
-        results = getLastActions(project, getName());
+        results = getLastActions(job, getName());
       }
     }
     return results.getResults();
   }
 
-  private Results getLastActions(AbstractProject<?, ?> project, String name) {
-    final AbstractBuild<?,?> lastSuccessfulBuild = project.getLastSuccessfulBuild();
-    AbstractBuild<?,?> currentBuild = project.getLastBuild();
+  private Results getLastActions(Job<?, ?> job, String name) {
+    final Run lastSuccessfulBuild = job.getLastSuccessfulBuild();
+    Run currentBuild = job.getLastBuild();
     while(currentBuild!=null) {
       List<TestCategoriesActionBase> actions = getTestCategoriesActions(currentBuild, name);
       if(!actions.isEmpty() && (!currentBuild.isBuilding())) {

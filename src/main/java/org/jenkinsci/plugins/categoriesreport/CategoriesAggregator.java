@@ -2,6 +2,7 @@ package org.jenkinsci.plugins.categoriesreport;
 
 import org.jenkinsci.plugins.categoriesreport.xml.CategoriesType;
 import org.jenkinsci.plugins.categoriesreport.xml.CategoryType;
+import org.jenkinsci.plugins.categoriesreport.xml.TestCaseType;
 import org.jenkinsci.plugins.categoriesreport.xml.TestSuiteType;
 
 import java.util.HashSet;
@@ -27,6 +28,15 @@ class CategoriesAggregator {
   }
 
   public void exitTestSuite() {
+    exitCategories();
+    levelCache = null;
+  }
+
+  public void enterTestCase(TestCaseType testCase) {
+    enterCategories(testCase.getCategories());
+  }
+
+  public void exitTestCase() {
     exitCategories();
     levelCache = null;
   }

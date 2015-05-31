@@ -108,11 +108,13 @@ class NUnitProcessor {
       aggregator.exitTestSuite();
     }
 
-    private void processTestCase(TestCaseType tc, CategoriesAggregator aggregator) {
-      if (tc.getExecuted().equalsIgnoreCase("True")) {
-        boolean success = tc.getSuccess().equalsIgnoreCase("True");
+    private void processTestCase(TestCaseType testCase, CategoriesAggregator aggregator) {
+      aggregator.enterTestCase(testCase);
+      if (testCase.getExecuted().equalsIgnoreCase("True")) {
+        boolean success = testCase.getSuccess().equalsIgnoreCase("True");
         aggregator.addTest(success);
       }
+      aggregator.exitTestCase();
     }
 
     private void processResults(ResultsType results, CategoriesAggregator aggregator) {

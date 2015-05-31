@@ -26,7 +26,7 @@ public abstract class TestCategoriesActionBase implements Action {
   }
 
   public String getUrlName() {
-    return "testCategories";
+    return "categories-report";
   }
 
   public String getName() {

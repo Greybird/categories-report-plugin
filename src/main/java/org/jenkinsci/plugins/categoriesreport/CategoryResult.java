@@ -34,14 +34,29 @@ public class CategoryResult implements Serializable {
     return successes + failures;
   }
 
+  public double getSuccessPercentage() {
+    return getTotal() != 0 ? ((double) successes / getTotal()) : 0d;
+  }
+
+  public double getFailurePercentage() {
+    return getTotal() != 0 ? ((double) failures / getTotal()) : 0d;
+  }
+
   public void addSuccess() {
-    successes++;
+    addSuccesses(1);
   }
 
   public void addFailure() {
-    failures++;
+    addFailures(1);
   }
 
+  protected void addSuccesses(int count) {
+    successes += count;
+  }
+
+  protected void addFailures(int count) {
+    failures += count;
+  }
 
 
 }

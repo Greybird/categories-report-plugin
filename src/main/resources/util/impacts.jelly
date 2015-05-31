@@ -1,7 +1,7 @@
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:t="/lib/hudson">
   <j:if test="${it.hasFailingCategories}">
-    <t:summary icon="icon-categories">
+    <t:summary icon="icon-categories" href="${it.urlName}" iconOnly="true">
       <b>${it.displayName}:</b>
       <ul style="margin-top:0">
       <j:forEach var="category" items="${it.failingCategories}">
