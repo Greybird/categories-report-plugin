@@ -1,0 +1,9 @@
+<j:jelly xmlns:j="jelly:core" xmlns:dp="/hudson/plugins/view/dashboard" xmlns:u="/util">
+    <dp:decorate portlet="${it}">
+        <tr><td>
+            <div align="center">
+                <u:categories-report results="${it.getCategoriesResult(jobs)}"/>
+            </div>
+        </td></tr>
+    </dp:decorate>
+</j:jelly>
