@@ -7,5 +7,7 @@
 * ~~Add help on config~~
 * ~~Add logs~~
 * ~~Provide a dashboard aggregating view~~
+* Add a way to add several categories reports
+* Write tests !
 * Add a way to specify if categories with no failures have to be printed
 * Link to junit report
