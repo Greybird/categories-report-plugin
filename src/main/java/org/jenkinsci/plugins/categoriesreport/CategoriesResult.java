@@ -7,6 +7,7 @@ import java.util.List;
 public class CategoriesResult extends CategoryResult {
 
     private final List<CategoryResult> categories;
+    private final DecimalFormat percentageFormat = new DecimalFormat("0%");
 
     public CategoriesResult(List<CategoryResult> categories) {
         super("Total");
@@ -21,14 +22,14 @@ public class CategoriesResult extends CategoryResult {
         return categories;
     }
 
-    public String format(DecimalFormat df, double val) {
+    public String format(double val) {
         if (val < 1d && val > .99d) {
             return "<100%";
         }
         if (val > 0d && val < .01d) {
             return ">0%";
         }
-        return df.format(val);
+        return percentageFormat.format(val);
     }
 
     public String getBackgroundColor(CategoryResult cr) {

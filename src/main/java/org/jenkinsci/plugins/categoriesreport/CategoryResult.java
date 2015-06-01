@@ -18,10 +18,6 @@ public class CategoryResult implements Serializable {
     return name;
   }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
   public int getSuccesses() {
     return successes;
   }

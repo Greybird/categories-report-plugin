@@ -61,10 +61,12 @@ class CategoriesAggregator {
       }
     }
     categoriesStack.push(matchingCategories);
+    levelCache = null;
   }
 
   private void exitCategories() {
     categoriesStack.pop();
+    levelCache = null;
   }
 
   private void addTest(String cat, boolean success) {

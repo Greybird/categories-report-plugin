@@ -6,9 +6,6 @@
             Categories results
         </st:attribute>
     </st:documentation>
-    <j:new className="java.text.DecimalFormat" var="format">
-        <j:arg type="java.lang.String" value="0%" />
-    </j:new>
     <table id="categoriesreport-grid" class="sortable pane bigtable" style="margin-top: 0;">
         <tr style="border-top: 0;">
             <th class="pane-header" align="left" initialSortDir="down">Name</th>
@@ -22,18 +19,18 @@
             <tr style="border: 1px #bbb solid; background-color: ${results.getBackgroundColor(tr)};">
                 <td align="left"><strong>${tr.name}</strong></td>
                 <td align="right">${tr.failures}</td>
-                <td align="right" data="$(tr.failures}">${results.format(format, tr.failurePercentage)}</td>
+                <td align="right" data="$(tr.failures}">${results.format(tr.failurePercentage)}</td>
                 <td align="right">${tr.successes}</td>
-                <td align="right" data="$(tr.successes}">${results.format(format, tr.successPercentage)}</td>
+                <td align="right" data="$(tr.successes}">${results.format(tr.successPercentage)}</td>
                 <td align="right">${tr.total}</td>
             </tr>
         </j:forEach>
         <tr class="sortbottom">
             <td class="pane-header" align="left">${results.name}</td>
             <td class="pane-header" align="right">${results.failures}</td>
-            <td class="pane-header" align="right">${results.format(format, results.failurePercentage)}</td>
+            <td class="pane-header" align="right">${results.format(results.failurePercentage)}</td>
             <td class="pane-header" align="right">${results.successes}</td>
-            <td class="pane-header" align="right">${results.format(format, results.successPercentage)}</td>
+            <td class="pane-header" align="right">${results.format(results.successPercentage)}</td>
             <td class="pane-header" align="right">${results.total}</td>
         </tr>
     </table>
