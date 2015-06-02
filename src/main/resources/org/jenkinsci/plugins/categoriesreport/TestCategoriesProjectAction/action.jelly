@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout">
+    <l:task icon="icon-categories icon-md" title="${action.name}" href="lastCompletedBuild/categories-report/${action.name}"/>
+</j:jelly>

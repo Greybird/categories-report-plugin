@@ -21,12 +21,14 @@ public class TestCategoriesPortlet extends DashboardPortlet {
         for (TopLevelItem item : jobs) {
             if (item instanceof Job) {
                 Job job = (Job) item;
-                TestCategoriesProjectAction projectAction = job.getAction(TestCategoriesProjectAction.class);
-                if (projectAction != null) {
-                    if (projectAction.getName().equals(getName())) {
-                        List<CategoryResult> jobCategories = projectAction.getCategories();
-                        if (jobCategories != null) {
-                            merge(results, jobCategories);
+                List<TestCategoriesProjectAction> projectActions = job.getActions(TestCategoriesProjectAction.class);
+                if (projectActions != null) {
+                    for(TestCategoriesProjectAction projectAction : projectActions) {
+                        if (projectAction.getName().equals(getName())) {
+                            List<CategoryResult> jobCategories = projectAction.getCategories();
+                            if (jobCategories != null) {
+                                merge(results, jobCategories);
+                            }
                         }
                     }
                 }

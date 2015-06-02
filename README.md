@@ -8,6 +8,7 @@
 * ~~Add logs~~
 * ~~Provide a dashboard aggregating view~~
 * ~~Write tests !~~
-* Add a way to add several categories reports
+* ~~Add a way to add several categories reports~~
 * Add a way to specify if categories with no failures have to be printed
+* Review color management
 * Link to junit report

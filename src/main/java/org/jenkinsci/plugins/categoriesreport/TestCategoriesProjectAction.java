@@ -16,7 +16,7 @@ public class TestCategoriesProjectAction extends TestCategoriesActionBase {
 
   @Override
   public String getUrlName() {
-    return "lastCompletedBuild/" + super.getUrlName();
+    return null;
   }
 
   @Override

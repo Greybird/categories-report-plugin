@@ -1,17 +1,14 @@
 package org.jenkinsci.plugins.categoriesreport;
 
+import hudson.DescriptorExtensionList;
+import hudson.model.*;
+import jenkins.model.Jenkins;
 import org.kohsuke.stapler.DataBoundConstructor;
 import hudson.Extension;
 import hudson.Launcher;
-import hudson.model.Action;
-import hudson.model.BuildListener;
-import hudson.model.AbstractBuild;
-import hudson.model.AbstractProject;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 
 import hudson.tasks.BuildStepDescriptor;
@@ -23,27 +20,15 @@ import hudson.tasks.Publisher;
 public class TestCategoriesPublisher extends Recorder {
 
   private static final Logger logger = Logger.getLogger(TestCategoriesPublisher.class.getName());
-  private final String filePattern;
-  private final String name;
-  private final String categoriesRegex;
+  private TestCategoriesReport[] reports;
 
   @DataBoundConstructor
-  public TestCategoriesPublisher(String name, String filePattern, String categoriesRegex) {
-      this.name = name;
-      this.filePattern = filePattern;
-      this.categoriesRegex = categoriesRegex;
+  public TestCategoriesPublisher(TestCategoriesReport[] reports) {
+    this.reports = reports;
   }
 
-  public String getName() {
-      return name;
-  }
-
-  public String getFilePattern() {
-    return filePattern;
-  }
-
-  public String getCategoriesRegex() {
-    return categoriesRegex;
+  public TestCategoriesReport[] getReports() {
+    return reports;
   }
 
   @Override
@@ -53,16 +38,28 @@ public class TestCategoriesPublisher extends Recorder {
 
   @Override
   public Collection<? extends Action> getProjectActions(AbstractProject<?, ?> project) {
-    return Collections.singleton(new TestCategoriesProjectAction(project, name));
+    List<Action> actions = new ArrayList<Action>();
+    if (reports != null) {
+      for (TestCategoriesReport report : reports) {
+        actions.add(new TestCategoriesProjectAction(project, report.getName()));
+      }
+    }
+    return actions;
   }
 
   @Override
   public boolean perform(AbstractBuild<?, ?> build, Launcher launcher, BuildListener listener) throws InterruptedException, IOException {
     TestCategoriesLog log = new TestCategoriesLog(listener);
     log.infoConsoleLogger("Starting processing");
-    NUnitProcessor processor = new NUnitProcessor(log, build, listener, filePattern, categoriesRegex);
-    Map<String, CategoryResult> results = processor.run();
-    build.addAction(new TestCategoriesRunAction(name, results.values()));
+    if (reports != null) {
+      for(TestCategoriesReport report : reports) {
+        log.infoConsoleLogger("Starting processing report " + report.getName());
+        NUnitProcessor processor = new NUnitProcessor(log, build, listener, report.getFilePattern(), report.getCategoriesRegex());
+        Map<String, CategoryResult> results = processor.run();
+        build.addAction(new TestCategoriesRunAction(report.getName(), results.values()));
+        log.infoConsoleLogger("Ended processing report " + report.getName());
+      }
+    }
     log.infoConsoleLogger("Ended processing");
     return true;
   }
@@ -83,6 +80,10 @@ public class TestCategoriesPublisher extends Recorder {
     @Override
     public String getDisplayName() {
       return Messages.testCategories_PublisherName();
+    }
+
+    public DescriptorExtensionList<TestCategoriesReport, TestCategoriesReportDescriptor> getTestCategoriesReportDescriptor() {
+      return Jenkins.getInstance().getDescriptorList(TestCategoriesReport.class);
     }
   }
 }
