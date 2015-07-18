@@ -104,7 +104,10 @@ class NUnitProcessor {
 
     private void processTestSuite(TestSuiteType testSuite, CategoriesAggregator aggregator) {
       aggregator.enterTestSuite(testSuite);
-      processResults(testSuite.getResults(), aggregator);
+      ResultsType results = testSuite.getResults();
+      if (results != null) {
+        processResults(results, aggregator);
+      }
       aggregator.exitTestSuite();
     }
 
@@ -118,11 +121,17 @@ class NUnitProcessor {
     }
 
     private void processResults(ResultsType results, CategoriesAggregator aggregator) {
-      for(TestSuiteType ts : results.getTestSuite()) {
-        processTestSuite(ts, aggregator);
+      List<TestSuiteType> testSuites = results.getTestSuite();
+      if (testSuites != null) {
+        for (TestSuiteType ts : testSuites) {
+          processTestSuite(ts, aggregator);
+        }
       }
-      for(TestCaseType tc : results.getTestCase()) {
-        processTestCase(tc, aggregator);
+      List<TestCaseType> testCases = results.getTestCase();
+      if (testCases != null) {
+        for (TestCaseType tc : testCases) {
+          processTestCase(tc, aggregator);
+        }
       }
     }
 
