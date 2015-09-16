@@ -1,6 +1,18 @@
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
   <f:block>
-    <f:hetero-list name="reports" descriptors="${descriptor.testCategoriesReportDescriptor}" items="${instance.reports}"/>
+    <f:repeatable header="Report" var="element" items="${instance.reports}">
+      <table width="100%">
+         <f:entry title="Name" field="name">
+           <f:textbox value="${element.name}"/>
+         </f:entry>
+         <f:entry title="Files pattern" field="filePattern">
+           <f:textbox value="${element.filePattern}"/>
+         </f:entry>
+         <f:entry title="Categories capture regular expression" field="categoriesRegex">
+           <f:textbox value="${element.categoriesRegex}"/>
+         </f:entry>
+       </table>
+    </f:repeatable>
   </f:block>
 </j:jelly>

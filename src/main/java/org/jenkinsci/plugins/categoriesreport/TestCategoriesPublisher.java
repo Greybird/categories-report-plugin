@@ -1,8 +1,6 @@
 package org.jenkinsci.plugins.categoriesreport;
 
-import hudson.DescriptorExtensionList;
 import hudson.model.*;
-import jenkins.model.Jenkins;
 import org.kohsuke.stapler.DataBoundConstructor;
 import hudson.Extension;
 import hudson.Launcher;
@@ -20,14 +18,17 @@ import hudson.tasks.Publisher;
 public class TestCategoriesPublisher extends Recorder {
 
   private static final Logger logger = Logger.getLogger(TestCategoriesPublisher.class.getName());
-  private TestCategoriesReport[] reports;
+  private List<TestCategoriesReport> reports = new ArrayList<TestCategoriesReport>();
 
   @DataBoundConstructor
-  public TestCategoriesPublisher(TestCategoriesReport[] reports) {
-    this.reports = reports;
+  public TestCategoriesPublisher(List<TestCategoriesReport> element) {
+    if (element != null) {
+      this.reports = element;
+    }
   }
 
-  public TestCategoriesReport[] getReports() {
+  @SuppressWarnings("unused")
+  public List<TestCategoriesReport> getReports() {
     return reports;
   }
 
@@ -80,10 +81,6 @@ public class TestCategoriesPublisher extends Recorder {
     @Override
     public String getDisplayName() {
       return Messages.testCategories_PublisherName();
-    }
-
-    public DescriptorExtensionList<TestCategoriesReport, TestCategoriesReportDescriptor> getTestCategoriesReportDescriptor() {
-      return Jenkins.getInstance().getDescriptorList(TestCategoriesReport.class);
     }
   }
 }

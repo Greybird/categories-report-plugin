@@ -4,11 +4,10 @@ import hudson.model.Descriptor;
 import hudson.model.Describable;
 import org.kohsuke.stapler.DataBoundConstructor;
 
-public class TestCategoriesReport implements Describable<TestCategoriesReport> {
+public class TestCategoriesReport {
     private final String filePattern;
     private final String name;
     private final String categoriesRegex;
-    private TestCategoriesReportDescriptor descriptor = new TestCategoriesReportDescriptor();
 
     @DataBoundConstructor
     public TestCategoriesReport(String name, String filePattern, String categoriesRegex) {
@@ -27,10 +26,5 @@ public class TestCategoriesReport implements Describable<TestCategoriesReport> {
 
     public String getCategoriesRegex() {
         return categoriesRegex;
-    }
-
-    @Override
-    public Descriptor<TestCategoriesReport> getDescriptor() {
-        return descriptor;
     }
 }
