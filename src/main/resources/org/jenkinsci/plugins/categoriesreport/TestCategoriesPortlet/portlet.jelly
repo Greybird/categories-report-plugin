@@ -2,7 +2,7 @@
     <dp:decorate portlet="${it}">
         <tr><td>
             <div align="center">
-                <u:categories-report results="${it.getCategoriesResult(jobs)}"/>
+                <u:categories-report id="${it.id}" results="${it.getCategoriesResult(jobs)}"/>
             </div>
         </td></tr>
     </dp:decorate>

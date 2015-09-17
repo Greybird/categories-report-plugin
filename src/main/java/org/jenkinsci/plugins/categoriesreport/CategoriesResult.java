@@ -32,7 +32,7 @@ public class CategoriesResult extends CategoryResult {
         return percentageFormat.format(val);
     }
 
-    public String getBackgroundColor(CategoryResult cr) {
-        return cr.getFailures() > 0 ? "#E86850" : "#71E66D";
+    public String getForegroundColor(CategoryResult cr) {
+        return cr.getFailures() > 0 ? "#7C0000" : "#007F00";
     }
 }

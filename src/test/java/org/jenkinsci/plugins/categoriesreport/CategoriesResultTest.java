@@ -43,8 +43,8 @@ public class CategoriesResultTest extends TestCase {
 
         CategoriesResult result = new CategoriesResult(cr);
 
-        String successColor = result.getBackgroundColor(successResult);
-        String failureColor = result.getBackgroundColor(failureResult);
+        String successColor = result.getForegroundColor(successResult);
+        String failureColor = result.getForegroundColor(failureResult);
 
         assertNotSame(successColor, failureColor);
     }

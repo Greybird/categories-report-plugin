@@ -5,8 +5,11 @@
         <st:attribute name="results" type="CategoriesResult">
             Categories results
         </st:attribute>
+        <st:attribute name="id" type="string">
+            Unique id of the grid
+         </st:attribute>
     </st:documentation>
-    <table id="categoriesreport-grid" class="sortable pane bigtable" style="margin-top: 0;">
+    <table id="${id}" class="sortable pane bigtable" style="margin-top: 0;">
         <tr style="border-top: 0;">
             <th class="pane-header" align="left" initialSortDir="down">Name</th>
             <th class="pane-header" align="right" initialSortDir="down">Failures</th>
@@ -16,13 +19,13 @@
             <th class="pane-header" align="right">${%Total} #</th>
         </tr>
         <j:forEach var="tr" items="${results.categories}">
-            <tr style="border: 1px #bbb solid; background-color: ${results.getBackgroundColor(tr)};">
-                <td align="left"><strong>${tr.name}</strong></td>
-                <td align="right">${tr.failures}</td>
-                <td align="right" data="$(tr.failures}">${results.format(tr.failurePercentage)}</td>
-                <td align="right">${tr.successes}</td>
-                <td align="right" data="$(tr.successes}">${results.format(tr.successPercentage)}</td>
-                <td align="right">${tr.total}</td>
+            <tr style="border: 1px #bbb solid;">
+                <td align="left" style="color: ${results.getForegroundColor(tr)};"><strong>${tr.name}</strong></td>
+                <td align="right" style="color: ${results.getForegroundColor(tr)};">${tr.failures}</td>
+                <td align="right" style="color: ${results.getForegroundColor(tr)};" data="$(tr.failures}">${results.format(tr.failurePercentage)}</td>
+                <td align="right" style="color: ${results.getForegroundColor(tr)};">${tr.successes}</td>
+                <td align="right" style="color: ${results.getForegroundColor(tr)};" data="$(tr.successes}">${results.format(tr.successPercentage)}</td>
+                <td align="right" style="color: ${results.getForegroundColor(tr)};">${tr.total}</td>
             </tr>
         </j:forEach>
         <tr class="sortbottom">
