@@ -14,8 +14,9 @@ import java.util.List;
 
 public class TestCategoriesRunAction extends TestCategoriesActionBase implements RunAction2 {
 
-  private final List<CategoryResult> categories = new ArrayList<CategoryResult>();
-  private Run<?, ?> build;
+  private List<CategoryResult> categories = new ArrayList<CategoryResult>();
+
+  private transient Run<?, ?> build;
 
   public TestCategoriesRunAction(String name, Collection<CategoryResult> results) {
     super(name);

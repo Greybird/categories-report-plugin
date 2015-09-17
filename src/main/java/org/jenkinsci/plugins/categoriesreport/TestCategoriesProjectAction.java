@@ -37,21 +37,25 @@ public class TestCategoriesProjectAction extends TestCategoriesActionBase {
   private Results getLastActions(Job<?, ?> job, String name) {
     final Run lastSuccessfulBuild = job.getLastSuccessfulBuild();
     Run currentBuild = job.getLastBuild();
+
+    List<CategoryResult> categories = new ArrayList<CategoryResult>(0);
+    int buildNumber = lastSuccessfulBuild == null ? 0 : lastSuccessfulBuild.number;
+
     while(currentBuild!=null) {
       List<TestCategoriesActionBase> actions = getTestCategoriesActions(currentBuild, name);
       if(!actions.isEmpty() && (!currentBuild.isBuilding())) {
-        List<CategoryResult> categories = actions.get(0).getCategories();
+        categories = actions.get(0).getCategories();
         SortCategories(categories);
-        return new Results(categories, lastSuccessfulBuild.number);
+        break;
       }
       if(currentBuild==lastSuccessfulBuild) {
         // if even the last successful build didn't produce the test result,
         // that means we just don't have any tests configured.
-        return new Results(new ArrayList<CategoryResult>(0), lastSuccessfulBuild.number);
+        break;
       }
       currentBuild = currentBuild.getPreviousBuild();
     }
-    return new Results(new ArrayList<CategoryResult>(0), 0);
+    return new Results(categories, buildNumber);
   }
 
   private static List<TestCategoriesActionBase> getTestCategoriesActions(Run r, String name) {
