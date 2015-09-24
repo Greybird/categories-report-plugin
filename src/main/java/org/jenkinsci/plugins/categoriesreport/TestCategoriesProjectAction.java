@@ -24,10 +24,10 @@ public class TestCategoriesProjectAction extends TestCategoriesActionBase {
     if (results == null) {
       results = getLastActions(job, getName());
     } else {
-      Run lastSuccessfulBuild = job.getLastSuccessfulBuild();
-      if (lastSuccessfulBuild == null) {
+      Run lastBuild = job.getLastBuild();
+      if (lastBuild == null) {
         results = getLastActions(job, getName());
-      } else if (lastSuccessfulBuild.number > results.getBuildNumber()) {
+      } else if (lastBuild.number > results.getBuildNumber()) {
         results = getLastActions(job, getName());
       }
     }
