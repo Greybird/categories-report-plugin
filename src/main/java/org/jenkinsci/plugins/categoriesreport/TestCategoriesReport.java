@@ -8,12 +8,14 @@ public class TestCategoriesReport {
     private final String filePattern;
     private final String name;
     private final String categoriesRegex;
+    private final String defaultCategory;
 
     @DataBoundConstructor
-    public TestCategoriesReport(String name, String filePattern, String categoriesRegex) {
+    public TestCategoriesReport(String name, String filePattern, String categoriesRegex, String defaultCategory) {
         this.name = name;
         this.filePattern = filePattern;
         this.categoriesRegex = categoriesRegex;
+        this.defaultCategory = defaultCategory;
     }
 
     public String getName() {
@@ -27,4 +29,9 @@ public class TestCategoriesReport {
     public String getCategoriesRegex() {
         return categoriesRegex;
     }
+
+    public String getDefaultCategory() {
+        return defaultCategory;
+    }
+
 }

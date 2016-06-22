@@ -55,7 +55,7 @@ public class TestCategoriesPublisher extends Recorder {
     if (reports != null) {
       for(TestCategoriesReport report : reports) {
         log.infoConsoleLogger("Starting processing report " + report.getName());
-        NUnitProcessor processor = new NUnitProcessor(log, build, listener, report.getFilePattern(), report.getCategoriesRegex());
+        NUnitProcessor processor = new NUnitProcessor(log, build, listener, report.getFilePattern(), report.getCategoriesRegex(), report.getDefaultCategory());
         Map<String, CategoryResult> results = processor.run();
         build.addAction(new TestCategoriesRunAction(report.getName(), results.values()));
         log.infoConsoleLogger("Ended processing report " + report.getName());
