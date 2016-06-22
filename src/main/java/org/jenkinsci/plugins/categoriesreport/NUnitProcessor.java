@@ -32,19 +32,21 @@ class NUnitProcessor {
   private final BuildListener listener;
   private final String filePattern;
   private final String categoriesRegex;
+  private final String defaultCategory;
   private final TestCategoriesLog logger;
 
-  public NUnitProcessor(TestCategoriesLog logger, AbstractBuild<?, ?> build, BuildListener listener, String filePattern, String categoriesRegex) {
+  public NUnitProcessor(TestCategoriesLog logger, AbstractBuild<?, ?> build, BuildListener listener, String filePattern, String categoriesRegex, String defaultCategory) {
     this.build = build;
     this.listener = listener;
     this.filePattern = filePattern;
     this.categoriesRegex = categoriesRegex;
+    this.defaultCategory = defaultCategory;
     this.logger = logger;
   }
 
   public Map<String, CategoryResult> run() throws IOException, InterruptedException {
     NUnitLocalProcessor processor = new NUnitLocalProcessor();
-    processor.load(logger, getExpandedResolvedPattern(build, listener, filePattern), categoriesRegex);
+    processor.load(logger, getExpandedResolvedPattern(build, listener, filePattern), categoriesRegex, defaultCategory);
     return build.getWorkspace().act(processor);
   }
 
@@ -61,11 +63,13 @@ class NUnitProcessor {
     private TestCategoriesLog logger;
     private String filePattern;
     private String categoriesPattern;
+    private String defaultCategory;
 
-    public void load(TestCategoriesLog logger, String filePattern, String categoriesPattern) {
+    public void load(TestCategoriesLog logger, String filePattern, String categoriesPattern, String defaultCategory) {
       this.logger = logger;
       this.filePattern = filePattern;
       this.categoriesPattern = categoriesPattern;
+      this.defaultCategory = defaultCategory;
     }
 
     @Override
@@ -95,7 +99,7 @@ class NUnitProcessor {
     }
 
     private void process(ResultType testResult, Map<String, CategoryResult> categories) {
-      CategoriesAggregator aggregator = new CategoriesAggregator(categoriesPattern, categories);
+      CategoriesAggregator aggregator = new CategoriesAggregator(categoriesPattern, defaultCategory, categories);
       TestSuiteType testSuite = testResult.getTestSuite();
       if (testSuite != null) {
         processTestSuite(testSuite, aggregator);

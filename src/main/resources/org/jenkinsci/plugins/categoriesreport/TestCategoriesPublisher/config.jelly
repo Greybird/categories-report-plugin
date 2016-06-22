@@ -12,6 +12,9 @@
          <f:entry title="Categories capture regular expression" field="categoriesRegex">
            <f:textbox value="${element.categoriesRegex}"/>
          </f:entry>
+        <f:entry title="Default category" field="defaultCategory">
+          <f:textbox value="${element.defaultCategory}"/>
+        </f:entry>
        </table>
     </f:repeatable>
   </f:block>

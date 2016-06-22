@@ -13,6 +13,7 @@ public class CategoriesAggregatorTest extends TestCase {
 
     private final String ALL_PATTERN = ".*";
     private final String DEFAULT_CATEGORY = "Category";
+    private final String FALLBACK_CATEGORY = "Fallback";
 
     private final String SUB_PATTERN = "Is(.*)";
     private final String SUB_MATCHING_CATEGORY_STRIPPED = "Ok";
@@ -23,7 +24,7 @@ public class CategoriesAggregatorTest extends TestCase {
 
     public void testNoContextForTestIsWorking() {
         Map<String, CategoryResult> categories = new HashMap<String, CategoryResult>();
-        CategoriesAggregator aggregator = new CategoriesAggregator(ALL_PATTERN, categories);
+        CategoriesAggregator aggregator = new CategoriesAggregator(ALL_PATTERN, null, categories);
 
         aggregator.addTest(true);
         aggregator.addTest(false);
@@ -33,7 +34,7 @@ public class CategoriesAggregatorTest extends TestCase {
 
     public void testSuiteNoCategoriesAreIgnored() {
         Map<String, CategoryResult> categories = new HashMap<String, CategoryResult>();
-        CategoriesAggregator aggregator = new CategoriesAggregator(ALL_PATTERN, categories);
+        CategoriesAggregator aggregator = new CategoriesAggregator(ALL_PATTERN, null, categories);
 
         TestSuiteType testSuite = new TestSuiteType();
         aggregator.enterTestSuite(testSuite);
@@ -44,7 +45,7 @@ public class CategoriesAggregatorTest extends TestCase {
 
     public void testSuiteCategoriesAreCountedCorrectlyForSuccess() {
         Map<String, CategoryResult> categories = new HashMap<String, CategoryResult>();
-        CategoriesAggregator aggregator = new CategoriesAggregator(ALL_PATTERN, categories);
+        CategoriesAggregator aggregator = new CategoriesAggregator(ALL_PATTERN, null, categories);
 
         TestSuiteType testSuite = new TestSuiteType();
         CategoriesType cats = new CategoriesType();
@@ -69,7 +70,7 @@ public class CategoriesAggregatorTest extends TestCase {
 
     public void testSuiteCategoriesAreCountedCorrectlyForFailure() {
         Map<String, CategoryResult> categories = new HashMap<String, CategoryResult>();
-        CategoriesAggregator aggregator = new CategoriesAggregator(ALL_PATTERN, categories);
+        CategoriesAggregator aggregator = new CategoriesAggregator(ALL_PATTERN, null, categories);
 
         TestSuiteType testSuite = new TestSuiteType();
         CategoriesType cats = new CategoriesType();
@@ -94,7 +95,7 @@ public class CategoriesAggregatorTest extends TestCase {
 
     public void testCaseNoCategoriesAreIgnored() {
         Map<String, CategoryResult> categories = new HashMap<String, CategoryResult>();
-        CategoriesAggregator aggregator = new CategoriesAggregator(SUB_PATTERN, categories);
+        CategoriesAggregator aggregator = new CategoriesAggregator(SUB_PATTERN, null, categories);
 
         TestCaseType testCase = new TestCaseType();
         aggregator.enterTestCase(testCase);
@@ -105,7 +106,7 @@ public class CategoriesAggregatorTest extends TestCase {
 
     public void testCaseCategoriesAreCountedCorrectlyForSuccess() {
         Map<String, CategoryResult> categories = new HashMap<String, CategoryResult>();
-        CategoriesAggregator aggregator = new CategoriesAggregator(SUB_PATTERN, categories);
+        CategoriesAggregator aggregator = new CategoriesAggregator(SUB_PATTERN, null, categories);
 
         TestCaseType testCase = new TestCaseType();
         CategoriesType cats = new CategoriesType();
@@ -135,7 +136,7 @@ public class CategoriesAggregatorTest extends TestCase {
 
     public void testCaseCategoriesAreCountedCorrectlyForFailure() {
         Map<String, CategoryResult> categories = new HashMap<String, CategoryResult>();
-        CategoriesAggregator aggregator = new CategoriesAggregator(SUB_PATTERN, categories);
+        CategoriesAggregator aggregator = new CategoriesAggregator(SUB_PATTERN, null, categories);
 
         TestCaseType testCase = new TestCaseType();
         CategoriesType cats = new CategoriesType();
@@ -163,9 +164,63 @@ public class CategoriesAggregatorTest extends TestCase {
         assertEquals(1.0d, result.getFailurePercentage(), 0.01);
     }
 
+    public void testCaseDefaultCategoryIsCorrectlyUsedForSuccess() {
+        Map<String, CategoryResult> categories = new HashMap<String, CategoryResult>();
+        CategoriesAggregator aggregator = new CategoriesAggregator(SUB_PATTERN, FALLBACK_CATEGORY, categories);
+
+        TestCaseType testCase = new TestCaseType();
+        CategoriesType cats = new CategoriesType();
+        CategoryType cat = new CategoryType();
+        cat.setName(SUB_NOT_MATCHING_CATEGORY);
+        cats.getCategory().add(cat);
+        testCase.setCategories(cats);
+
+        aggregator.enterTestCase(testCase);
+        aggregator.addTest(true);
+        aggregator.exitTestCase();
+        aggregator.addTest(true);
+
+        assertEquals(1, categories.size());
+        CategoryResult result = categories.get(FALLBACK_CATEGORY);
+        assertNotNull(result);
+        assertEquals(FALLBACK_CATEGORY, result.getName());
+        assertEquals(2, result.getSuccesses());
+        assertEquals(0, result.getFailures());
+        assertEquals(2, result.getTotal());
+        assertEquals(1.0d, result.getSuccessPercentage(), 0.01);
+        assertEquals(0.0d, result.getFailurePercentage(), 0.01);
+    }
+
+    public void testCaseDefaultCategoryIsCorrectlyUsedForFailure() {
+        Map<String, CategoryResult> categories = new HashMap<String, CategoryResult>();
+        CategoriesAggregator aggregator = new CategoriesAggregator(SUB_PATTERN, FALLBACK_CATEGORY, categories);
+
+        TestCaseType testCase = new TestCaseType();
+        CategoriesType cats = new CategoriesType();
+        CategoryType cat = new CategoryType();
+        cat.setName(SUB_NOT_MATCHING_CATEGORY);
+        cats.getCategory().add(cat);
+        testCase.setCategories(cats);
+
+        aggregator.enterTestCase(testCase);
+        aggregator.addTest(false);
+        aggregator.exitTestCase();
+        aggregator.addTest(false);
+
+        assertEquals(1, categories.size());
+        CategoryResult result = categories.get(FALLBACK_CATEGORY);
+        assertNotNull(result);
+        assertEquals(FALLBACK_CATEGORY, result.getName());
+        assertEquals(0, result.getSuccesses());
+        assertEquals(2, result.getFailures());
+        assertEquals(2, result.getTotal());
+        assertEquals(0.0d, result.getSuccessPercentage(), 0.01);
+        assertEquals(1.0d, result.getFailurePercentage(), 0.01);
+    }
+
     public void testMixedCategoriesAreCountedCorrectlyForMixedResults() {
         Map<String, CategoryResult> categories = new HashMap<String, CategoryResult>();
-        CategoriesAggregator aggregator = new CategoriesAggregator(SUB_PATTERN, categories);
+        CategoriesAggregator aggregator = new CategoriesAggregator(SUB_PATTERN, null, categories);
 
         TestSuiteType testSuite = new TestSuiteType();
         CategoriesType cats = new CategoriesType();

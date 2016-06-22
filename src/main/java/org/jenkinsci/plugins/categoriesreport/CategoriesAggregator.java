@@ -17,10 +17,14 @@ class CategoriesAggregator {
   private final Stack<Set<String>> categoriesStack = new Stack<Set<String>>();
   private Set<String> levelCache;
   private final Pattern pattern;
+  private final String defaultCategory;
+  private final Boolean isDefaultCategoryValid;
 
-  public CategoriesAggregator(String pattern, Map<String, CategoryResult> results) {
+  public CategoriesAggregator(String pattern, String defaultCategory, Map<String, CategoryResult> results) {
     this.pattern = Pattern.compile(pattern);
     this.results = results;
+    this.defaultCategory = defaultCategory;
+    this.isDefaultCategoryValid = !(this.defaultCategory == null || this.defaultCategory.equals(""));
   }
 
   public void enterTestSuite(TestSuiteType testSuite) {
@@ -45,6 +49,9 @@ class CategoriesAggregator {
     ensureLevelCache();
     for(String cat : levelCache) {
       addTest(cat, success);
+    }
+    if (levelCache.isEmpty() && isDefaultCategoryValid) {
+      addTest(defaultCategory, success);
     }
   }
 
