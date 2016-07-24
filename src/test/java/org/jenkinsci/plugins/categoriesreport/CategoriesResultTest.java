@@ -54,11 +54,24 @@ public class CategoriesResultTest extends TestCase {
 
         CategoriesResult result = new CategoriesResult(cr);
 
-        assertEquals("100%", result.format(1.0d));
-        assertEquals("<100%", result.format(0.999d));
-        assertEquals("98%", result.format(0.98d));
-        assertEquals("2%", result.format(0.02d));
-        assertEquals(">0%", result.format(0.001d));
-        assertEquals("0%", result.format(0d));
+        assertEquals("100%", result.format(1.0d, false));
+        assertEquals("<100%", result.format(0.999d, false));
+        assertEquals("98%", result.format(0.98d, false));
+        assertEquals("2%", result.format(0.02d, false));
+        assertEquals(">0%", result.format(0.001d, false));
+        assertEquals("0%", result.format(0d, false));
+    }
+
+    public void testFormatForNoAlternate() {
+        List<CategoryResult> cr = new ArrayList<CategoryResult>();
+
+        CategoriesResult result = new CategoriesResult(cr);
+
+        assertEquals("100%", result.format(1.0d, true));
+        assertEquals(">99%", result.format(0.999d, true));
+        assertEquals("98%", result.format(0.98d, true));
+        assertEquals("2%", result.format(0.02d, true));
+        assertEquals("<1%", result.format(0.001d, true));
+        assertEquals("0%", result.format(0d, true));
     }
 }
