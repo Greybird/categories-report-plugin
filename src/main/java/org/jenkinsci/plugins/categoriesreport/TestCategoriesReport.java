@@ -9,13 +9,15 @@ public class TestCategoriesReport {
     private final String name;
     private final String categoriesRegex;
     private final String defaultCategory;
+    private final boolean useAlternatePercentages;
 
     @DataBoundConstructor
-    public TestCategoriesReport(String name, String filePattern, String categoriesRegex, String defaultCategory) {
+    public TestCategoriesReport(String name, String filePattern, String categoriesRegex, String defaultCategory, boolean useAlternatePercentages) {
         this.name = name;
         this.filePattern = filePattern;
         this.categoriesRegex = categoriesRegex;
         this.defaultCategory = defaultCategory;
+        this.useAlternatePercentages = useAlternatePercentages;
     }
 
     public String getName() {
@@ -34,4 +36,7 @@ public class TestCategoriesReport {
         return defaultCategory;
     }
 
+    public boolean isUseAlternatePercentages() {
+        return useAlternatePercentages;
+    }
 }

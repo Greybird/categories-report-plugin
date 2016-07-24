@@ -22,12 +22,16 @@ public class CategoriesResult extends CategoryResult {
         return categories;
     }
 
-    public String format(double val) {
+    public String format(double val, boolean alternateFormat) {
         if (val < 1d && val > .99d) {
-            return "<100%";
+            return alternateFormat
+                ? ">99%"
+                :"<100%";
         }
         if (val > 0d && val < .01d) {
-            return ">0%";
+            return alternateFormat
+                ? "<1%"
+                : ">0%";
         }
         return percentageFormat.format(val);
     }
