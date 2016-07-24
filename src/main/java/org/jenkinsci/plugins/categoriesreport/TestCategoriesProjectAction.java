@@ -9,8 +9,8 @@ public class TestCategoriesProjectAction extends TestCategoriesActionBase {
   private Results results = null;
   private Job<?, ?> job;
 
-  public TestCategoriesProjectAction(Job<?,?> job, String name) {
-    super(name);
+  public TestCategoriesProjectAction(Job<?,?> job, String name, boolean useAlternatePercentages) {
+    super(name, useAlternatePercentages);
     this.job = job;
   }
 

@@ -11,9 +11,12 @@ import java.util.*;
 
 public class TestCategoriesPortlet extends DashboardPortlet {
 
+    private final boolean useAlternatePercentages;
+
     @DataBoundConstructor
-    public TestCategoriesPortlet(String name) {
+    public TestCategoriesPortlet(String name, boolean useAlternatePercentages) {
         super(name);
+        this.useAlternatePercentages = useAlternatePercentages;
     }
 
     public CategoriesResult getCategoriesResult(Collection<TopLevelItem> jobs) {
@@ -48,6 +51,10 @@ public class TestCategoriesPortlet extends DashboardPortlet {
             mappedResult.addFailures(cr.getFailures());
             mappedResult.addSuccesses(cr.getSuccesses());
         }
+    }
+
+    public boolean isUseAlternatePercentages() {
+        return useAlternatePercentages;
     }
 
     @Extension

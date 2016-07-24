@@ -42,7 +42,7 @@ public class TestCategoriesPublisher extends Recorder {
     List<Action> actions = new ArrayList<Action>();
     if (reports != null) {
       for (TestCategoriesReport report : reports) {
-        actions.add(new TestCategoriesProjectAction(project, report.getName()));
+        actions.add(new TestCategoriesProjectAction(project, report.getName(), report.isUseAlternatePercentages()));
       }
     }
     return actions;
@@ -57,7 +57,7 @@ public class TestCategoriesPublisher extends Recorder {
         log.infoConsoleLogger("Starting processing report " + report.getName());
         NUnitProcessor processor = new NUnitProcessor(log, build, listener, report.getFilePattern(), report.getCategoriesRegex(), report.getDefaultCategory());
         Map<String, CategoryResult> results = processor.run();
-        build.addAction(new TestCategoriesRunAction(report.getName(), results.values()));
+        build.addAction(new TestCategoriesRunAction(report.getName(), results.values(), report.isUseAlternatePercentages()));
         log.infoConsoleLogger("Ended processing report " + report.getName());
       }
     }

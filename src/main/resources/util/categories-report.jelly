@@ -8,6 +8,9 @@
         <st:attribute name="id" type="string">
             Unique id of the grid
          </st:attribute>
+        <st:attribute name="alternatePercentages" type="boolean">
+            Alternate Percentages
+        </st:attribute>
     </st:documentation>
     <table id="${id}" class="sortable pane bigtable" style="margin-top: 0;">
         <tr style="border-top: 0;">
@@ -22,18 +25,18 @@
             <tr style="border: 1px #bbb solid;">
                 <td align="left" style="color: ${results.getForegroundColor(tr)};"><strong>${tr.name}</strong></td>
                 <td align="right" style="color: ${results.getForegroundColor(tr)};">${tr.failures}</td>
-                <td align="right" style="color: ${results.getForegroundColor(tr)};" data="$(tr.failures}">${results.format(tr.failurePercentage)}</td>
+                <td align="right" style="color: ${results.getForegroundColor(tr)};" data="$(tr.failures}">${results.format(tr.failurePercentage, alternatePercentages)}</td>
                 <td align="right" style="color: ${results.getForegroundColor(tr)};">${tr.successes}</td>
-                <td align="right" style="color: ${results.getForegroundColor(tr)};" data="$(tr.successes}">${results.format(tr.successPercentage)}</td>
+                <td align="right" style="color: ${results.getForegroundColor(tr)};" data="$(tr.successes}">${results.format(tr.successPercentage, alternatePercentages)}</td>
                 <td align="right" style="color: ${results.getForegroundColor(tr)};">${tr.total}</td>
             </tr>
         </j:forEach>
         <tr class="sortbottom">
             <td class="pane-header" align="left">${results.name}</td>
             <td class="pane-header" align="right">${results.failures}</td>
-            <td class="pane-header" align="right">${results.format(results.failurePercentage)}</td>
+            <td class="pane-header" align="right">${results.format(results.failurePercentage, alternatePercentages)}</td>
             <td class="pane-header" align="right">${results.successes}</td>
-            <td class="pane-header" align="right">${results.format(results.successPercentage)}</td>
+            <td class="pane-header" align="right">${results.format(results.successPercentage, alternatePercentages)}</td>
             <td class="pane-header" align="right">${results.total}</td>
         </tr>
     </table>

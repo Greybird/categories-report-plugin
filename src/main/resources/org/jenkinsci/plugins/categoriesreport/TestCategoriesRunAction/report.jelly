@@ -5,7 +5,7 @@
         <st:include it="${it.build}" page="sidepanel.jelly" />
         <l:main-panel>
             <t:buildCaption>${it.name}</t:buildCaption>
-            <u:categories-report results="${it.categoriesResult}"/>
+            <u:categories-report results="${it.categoriesResult}" alternatePercentages="${it.useAlternatePercentages}"/>
         </l:main-panel>
     </l:layout>
 </j:jelly>

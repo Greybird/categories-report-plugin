@@ -10,15 +10,22 @@ import hudson.model.Action;
 public abstract class TestCategoriesActionBase implements Action {
 
   private String name;
+  private boolean useAlternatePercentages;
 
-  public TestCategoriesActionBase(String name) {
+
+  public TestCategoriesActionBase(String name, boolean useAlternatePercentages) {
     this.name = name;
+    this.useAlternatePercentages = useAlternatePercentages;
   }
 
   public String getIconFileName() {
     return getHasFailingCategories()
       ? "/plugin/categories-report/images/24x24/categories.png"
       : null;
+  }
+
+  public boolean isUseAlternatePercentages() {
+    return useAlternatePercentages;
   }
 
   public String getDisplayName() {
@@ -32,6 +39,7 @@ public abstract class TestCategoriesActionBase implements Action {
   public String getName() {
     return name;
   }
+
 
   public boolean getHasCategories() {
     return getCategories().size() > 0;

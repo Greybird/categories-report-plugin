@@ -18,8 +18,8 @@ public class TestCategoriesRunAction extends TestCategoriesActionBase implements
 
   private transient Run<?, ?> build;
 
-  public TestCategoriesRunAction(String name, Collection<CategoryResult> results) {
-    super(name);
+  public TestCategoriesRunAction(String name, Collection<CategoryResult> results, boolean useAlternatePercentages) {
+    super(name, useAlternatePercentages);
     categories.addAll(results);
     SortCategories(categories);
   }
@@ -36,6 +36,8 @@ public class TestCategoriesRunAction extends TestCategoriesActionBase implements
   protected List<CategoryResult> getCategoriesInternal() {
     return categories;
   }
+
+
 
   @Override
   public void onAttached(Run<?, ?> run) {
