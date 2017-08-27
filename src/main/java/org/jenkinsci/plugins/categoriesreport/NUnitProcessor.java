@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 class NUnitProcessor {
   private final AbstractBuild<?, ?> build;
@@ -82,7 +83,7 @@ class NUnitProcessor {
         Map<String, CategoryResult> categories = new HashMap<String, CategoryResult>();
         for(String file : getFiles(f)) {
           logger.infoConsoleLogger("Processing " + file);
-           appendFile(new File(f, file), categories);
+          appendFile(new File(f, file), categories);
         }
         return categories;
       } catch (JAXBException e) {
@@ -92,10 +93,14 @@ class NUnitProcessor {
 
 
     private void appendFile(File file, Map<String, CategoryResult> categories) throws JAXBException {
-      JAXBContext jaxbContext = JAXBContext.newInstance(ResultType.class);
-      Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-      JAXBElement<ResultType> ts = jaxbUnmarshaller.unmarshal(new StreamSource(file), ResultType.class);
-      process(ts.getValue(), categories);
+      try {
+        JAXBContext jaxbContext = JAXBContext.newInstance(ResultType.class);
+        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+        JAXBElement<ResultType> ts = jaxbUnmarshaller.unmarshal(new StreamSource(file), ResultType.class);
+        process(ts.getValue(), categories);
+      } catch (Exception e) {
+        logger.errorConsoleLogger("Ignoring file " + file + " due to error while parsing: " + e.getMessage());
+      }
     }
 
     private void process(ResultType testResult, Map<String, CategoryResult> categories) {
