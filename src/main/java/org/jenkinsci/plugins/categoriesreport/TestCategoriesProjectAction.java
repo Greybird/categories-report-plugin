@@ -45,7 +45,6 @@ public class TestCategoriesProjectAction extends TestCategoriesActionBase {
       List<TestCategoriesActionBase> actions = getTestCategoriesActions(currentBuild, name);
       if(!actions.isEmpty() && (!currentBuild.isBuilding())) {
         categories = actions.get(0).getCategories();
-        SortCategories(categories);
         break;
       }
       if(currentBuild==lastSuccessfulBuild) {
