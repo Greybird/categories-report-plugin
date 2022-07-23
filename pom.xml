@@ -59,7 +59,7 @@
     <maven.compiler.target>1.6</maven.compiler.target>
     <jaxb.version>1.6</jaxb.version>
     <dashboard-plugin.version>2.9.4</dashboard-plugin.version>
-    <junit-plugin.version>1.4</junit-plugin.version>
+    <junit-plugin.version>1119.1121.vc43d0fc45561</junit-plugin.version>
   </properties>
   
   <build>
